@@ -2,6 +2,10 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
+export const email_regex = /\S+@\S+\.\S+/;
+export const isodate_regex =
+  /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+
 function RecommendationRequestForm({
   initialContents,
   submitAction,
@@ -14,10 +18,6 @@ function RecommendationRequestForm({
   } = useForm({ defaultValues: initialContents || {} });
 
   const navigate = useNavigate();
-
-  const email_regex = /\S+@\S+\.\S+/;
-  const isodate_regex =
-    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
