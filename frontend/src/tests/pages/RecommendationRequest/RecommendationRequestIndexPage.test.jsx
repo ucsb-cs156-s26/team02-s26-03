@@ -18,7 +18,9 @@ describe("RecommendationRequestIndexPage tests", () => {
     mockAdapter
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
-    render(
+
+    // Grab the container to check the full text content easily
+    const { container } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <RecommendationRequestIndexPage />
@@ -28,5 +30,10 @@ describe("RecommendationRequestIndexPage tests", () => {
 
     const header = screen.getByText("Index Page Placeholder");
     expect(header).toBeInTheDocument();
+
+    const createLink = screen.getByRole("link", { name: "Create" });
+    expect(createLink).toHaveAttribute("href", "/recommendationrequest/create");
+
+    expect(container.textContent).toContain("Create | Edit");
   });
 });
