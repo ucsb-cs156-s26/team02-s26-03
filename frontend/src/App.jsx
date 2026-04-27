@@ -25,7 +25,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { data: currentUser } = useCurrentUser();
+  const currentUser = useCurrentUser();
 
   return (
     <Routes>
@@ -93,11 +93,7 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route
-            exact
-            path="/recommendationrequest"
-            element={<RecommendationRequestIndexPage />}
-          />
+          <Route exact path="/recommendationrequest" element={<RecommendationRequestIndexPage />} />
         </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
