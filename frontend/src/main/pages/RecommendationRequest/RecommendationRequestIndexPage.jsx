@@ -15,9 +15,14 @@ export default function RecommendationRequestIndexPage() {
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
     ["/api/recommendationrequest/all"],
+    // Stryker disable next-line StringLiteral : method and url are fixed for this page
     { method: "GET", url: "/api/recommendationrequest/all" },
-    [],
+    null,
   );
+
+  const requestsToDisplay = recommendationRequests
+    ? recommendationRequests
+    : [];
 
   const createButton = () => {
     if (hasRole(currentUser, "ROLE_ADMIN")) {
@@ -25,6 +30,7 @@ export default function RecommendationRequestIndexPage() {
         <Button
           variant="primary"
           href="/recommendationrequest/create"
+          // Stryker disable next-line all : CSS floating not critical to test
           style={{ float: "right" }}
         >
           Create RecommendationRequest
@@ -39,8 +45,7 @@ export default function RecommendationRequestIndexPage() {
         {createButton()}
         <h1>RecommendationRequests</h1>
         <RecommendationRequestTable
-          // Stryker disable next-line all : empty list fallback is tested in RecommendationRequestIndexPage.test.jsx
-          requests={recommendationRequests || []}
+          requests={requestsToDisplay}
           currentUser={currentUser}
         />
       </div>
