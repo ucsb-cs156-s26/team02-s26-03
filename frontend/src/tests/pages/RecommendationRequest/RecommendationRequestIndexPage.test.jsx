@@ -61,6 +61,9 @@ describe("RecommendationRequestIndexPage tests", () => {
         screen.getByText(/Create RecommendationRequest/),
       ).toBeInTheDocument();
     });
+    const button = screen.getByText(/Create RecommendationRequest/);
+    expect(button).toHaveAttribute("href", "/recommendationrequest/create");
+    expect(button).toHaveClass("btn-primary");
   });
 
   test("renders three recommendationRequests correctly for regular user", async () => {
@@ -83,6 +86,11 @@ describe("RecommendationRequestIndexPage tests", () => {
         screen.getByTestId(`RecommendationRequestTable-cell-row-0-col-id`),
       ).toHaveTextContent("2");
     });
+
+    // This assertion kills the surviving mutant: if (hasRole(...)) -> if (true)
+    // If the mutant is active, the button will be found and the test will fail.
+    const createButton = screen.queryByText(/Create RecommendationRequest/);
+    expect(createButton).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend returns null", async () => {
