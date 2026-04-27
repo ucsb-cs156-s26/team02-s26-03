@@ -232,4 +232,23 @@ describe("AppNavbar tests", () => {
       "/oauth2/authorization/google",
     );
   });
+
+  test("renders the RecommendationRequest link correctly", async () => {
+    const { getByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() =>
+      expect(getByText("RecommendationRequest")).toBeInTheDocument(),
+    );
+    const recommendationRequestLink = getByText("RecommendationRequest");
+    expect(recommendationRequestLink).toHaveAttribute(
+      "href",
+      "/recommendationrequest",
+    );
+  });
 });
