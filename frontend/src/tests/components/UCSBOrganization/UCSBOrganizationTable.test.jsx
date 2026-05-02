@@ -6,6 +6,7 @@ import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+import mockConsole from "tests/testutils/mockConsole";
 
 const mockedNavigate = vi.fn();
 vi.mock("react-router", async () => {
@@ -13,6 +14,15 @@ vi.mock("react-router", async () => {
   return {
     ...originalModule,
     useNavigate: () => mockedNavigate,
+  };
+});
+
+const mockToast = vi.fn();
+vi.mock("react-toastify", async (importOriginal) => {
+  const originalModule = await importOriginal();
+  return {
+    ...originalModule,
+    toast: vi.fn((x) => mockToast(x)),
   };
 });
 
@@ -32,6 +42,10 @@ describe("UCSBOrganizationTable tests", () => {
     "inactive",
   ];
   const testId = "UCSBOrganizationTable";
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
 
   test("renders empty table correctly", () => {
     const currentUser = currentUserFixtures.adminUser;
@@ -177,6 +191,7 @@ describe("UCSBOrganizationTable tests", () => {
 
   test("Delete button calls delete callback", async () => {
     const currentUser = currentUserFixtures.adminUser;
+    const restoreConsole = mockConsole();
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
@@ -207,5 +222,15 @@ describe("UCSBOrganizationTable tests", () => {
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
     expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "ARTS" });
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith({
+        message: "UCSBOrganization deleted",
+      }),
+    );
+    expect(console.log).toHaveBeenCalledWith({
+      message: "UCSBOrganization deleted",
+    });
+
+    restoreConsole();
   });
 });
