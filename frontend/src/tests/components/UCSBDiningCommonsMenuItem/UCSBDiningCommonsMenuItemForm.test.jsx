@@ -86,11 +86,41 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    const submitButton = screen.getByText(/Create/);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
     await screen.findByText(/Dining Commons Code is required/);
     expect(screen.getByText(/Name is required/)).toBeInTheDocument();
     expect(screen.getByText(/Station is required/)).toBeInTheDocument();
+  });
+
+  test("that form fields have correct testids and accept input", async () => {
+    const mockSubmit = vi.fn();
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <UCSBDiningCommonsMenuItemForm submitAction={mockSubmit} />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    const diningCommonsCodeInput = await screen.findByTestId(
+      `${testId}-diningCommonsCode`,
+    );
+    const nameInput = screen.getByTestId(`${testId}-name`);
+    const stationInput = screen.getByTestId(`${testId}-station`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
+
+    fireEvent.change(diningCommonsCodeInput, { target: { value: "portola" } });
+    fireEvent.change(nameInput, { target: { value: "Pasta" } });
+    fireEvent.change(stationInput, { target: { value: "Entrees" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(mockSubmit).toHaveBeenCalled());
+
+    expect(diningCommonsCodeInput).toBeInTheDocument();
+    expect(nameInput).toBeInTheDocument();
+    expect(stationInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 });
