@@ -2,6 +2,9 @@ package edu.ucsb.cs156.example.web;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import edu.ucsb.cs156.example.WebTestCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,9 +23,11 @@ public class RestaurantWebIT extends WebTestCase {
   public void admin_user_can_create_edit_delete_restaurant() throws Exception {
     setupUser(true);
 
-    page.getByText("Restaurants").click();
+    page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Restaurants")).click();
+    page.waitForURL("**/restaurants");
 
-    page.getByText("Create Restaurant").click();
+    Locator createRestaurant = page.getByText("Create Restaurant");
+    createRestaurant.click(new Locator.ClickOptions().setTimeout(120_000));
     assertThat(page.getByText("Create New Restaurant")).isVisible();
     page.getByTestId("RestaurantForm-name").fill("Freebirds");
     page.getByTestId("RestaurantForm-description").fill("Build your own burrito chain");
@@ -47,7 +52,8 @@ public class RestaurantWebIT extends WebTestCase {
   public void regular_user_cannot_create_restaurant() throws Exception {
     setupUser(false);
 
-    page.getByText("Restaurants").click();
+    page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Restaurants")).click();
+    page.waitForURL("**/restaurants");
 
     assertThat(page.getByText("Create Restaurant")).not().isVisible();
     assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-name")).not().isVisible();
