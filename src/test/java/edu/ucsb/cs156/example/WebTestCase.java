@@ -6,9 +6,9 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.options.ViewportSize;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.ViewportSize;
 import edu.ucsb.cs156.example.services.wiremock.WiremockServiceImpl;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -58,8 +58,7 @@ public abstract class WebTestCase {
 
     BrowserContext context =
         browser.newContext(
-            new Browser.NewContextOptions()
-                .setViewportSize(new ViewportSize(1920, 1080)));
+            new Browser.NewContextOptions().setViewportSize(new ViewportSize(1920, 1080)));
     page = context.newPage();
 
     String url = String.format("http://localhost:%d/oauth2/authorization/my-oauth-provider", port);
