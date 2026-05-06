@@ -23,8 +23,7 @@ function ArticlesForm({
   // Stryker restore Regex
 
   // Stryker disable Regex
-  const url_regex =
-    /^(https?:\/\/)([\w-]+(\.[\w-]+)+)(\/[\w-./?%&=]*)?$/i;
+  const url_regex = /^(https?:\/\/)([\w-]+(\.[\w-]+)+)(\/[\w-./?%&=]*)?$/i;
   // Stryker restore Regex
 
   // Stryker disable Regex
@@ -86,7 +85,8 @@ function ArticlesForm({
                 required: "URL is required.",
                 pattern: {
                   value: url_regex,
-                  message: "URL must be a valid URL starting with http:// or https://",
+                  message:
+                    "URL must be a valid URL starting with http:// or https://",
                 },
               })}
             />

@@ -18,7 +18,13 @@ vi.mock("react-router", async () => {
 describe("ArticlesForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Title", "URL", "Explanation", "Email", "Date Added"];
+  const expectedHeaders = [
+    "Title",
+    "URL",
+    "Explanation",
+    "Email",
+    "Date Added",
+  ];
   const testId = "ArticlesForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -114,7 +120,9 @@ describe("ArticlesForm tests", () => {
     fireEvent.change(emailField, { target: { value: "not-an-email" } });
     fireEvent.click(submitButton);
 
-    await screen.findByText(/URL must be a valid URL starting with http:\/\/ or https:\/\//);
+    await screen.findByText(
+      /URL must be a valid URL starting with http:\/\/ or https:\/\//,
+    );
     expect(
       screen.getByText(/Email must be a valid email address/),
     ).toBeInTheDocument();
@@ -151,8 +159,12 @@ describe("ArticlesForm tests", () => {
 
     expect(screen.queryByText(/Title is required./)).not.toBeInTheDocument();
     expect(screen.queryByText(/URL is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Explanation is required./)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Explanation is required./),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/Email is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Date Added is required./)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Date Added is required./),
+    ).not.toBeInTheDocument();
   });
 });
