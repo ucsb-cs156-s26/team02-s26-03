@@ -50,16 +50,8 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/ucsbdates/edit/:id"
-            element={<UCSBDatesEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsbdates/create"
-            element={<UCSBDatesCreatePage />}
-          />
+          <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
+          <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
         </>
       )}
 
@@ -69,16 +61,8 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/restaurants/edit/:id"
-            element={<RestaurantEditPage />}
-          />
-          <Route
-            exact
-            path="/restaurants/create"
-            element={<RestaurantCreatePage />}
-          />
+          <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
+          <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
         </>
       )}
 
@@ -88,85 +72,41 @@ function App() {
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/placeholder/edit/:id"
-            element={<PlaceholderEditPage />}
-          />
-          <Route
-            exact
-            path="/placeholder/create"
-            element={<PlaceholderCreatePage />}
-          />
+          <Route exact path="/placeholder/edit/:id" element={<PlaceholderEditPage />} />
+          <Route exact path="/placeholder/create" element={<PlaceholderCreatePage />} />
         </>
       )}
 
       {/* Recommendation Request */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route
-          exact
-          path="/recommendationrequest"
-          element={<RecommendationRequestIndexPage />}
-        />
+        <Route exact path="/recommendationrequest" element={<RecommendationRequestIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/recommendationrequest/edit/:id"
-            element={<RecommendationRequestEditPage />}
-          />
-          <Route
-            exact
-            path="/recommendationrequest/create"
-            element={<RecommendationRequestCreatePage />}
-          />
+          <Route exact path="/recommendationrequest/edit/:id" element={<RecommendationRequestEditPage />} />
+          <Route exact path="/recommendationrequest/create" element={<RecommendationRequestCreatePage />} />
         </>
       )}
 
       {/* UCSB Organization */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route
-          exact
-          path="/ucsborganization"
-          element={<UCSBOrganizationIndexPage />}
-        />
+        <Route exact path="/ucsborganization" element={<UCSBOrganizationIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/ucsborganization/edit/:id"
-            element={<UCSBOrganizationEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganization/create"
-            element={<UCSBOrganizationCreatePage />}
-          />
+          <Route exact path="/ucsborganization/edit/:id" element={<UCSBOrganizationEditPage />} />
+          <Route exact path="/ucsborganization/create" element={<UCSBOrganizationCreatePage />} />
         </>
       )}
 
       {/* UCSB Dining Commons Menu Item */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <Route
-          exact
-          path="/ucsbdiningcommonsmenuitem"
-          element={<UCSBDiningCommonsMenuItemIndexPage />}
-        />
+        <Route exact path="/ucsbdiningcommonsmenuitem" element={<UCSBDiningCommonsMenuItemIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/ucsbdiningcommonsmenuitem/edit/:id"
-            element={<UCSBDiningCommonsMenuItemEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsbdiningcommonsmenuitem/create"
-            element={<UCSBDiningCommonsMenuItemCreatePage />}
-          />
+          <Route exact path="/ucsbdiningcommonsmenuitem/edit/:id" element={<UCSBDiningCommonsMenuItemEditPage />} />
+          <Route exact path="/ucsbdiningcommonsmenuitem/create" element={<UCSBDiningCommonsMenuItemCreatePage />} />
         </>
       )}
     </Routes>
