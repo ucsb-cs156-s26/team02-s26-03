@@ -32,34 +32,27 @@ export default function AppNavbar({
 
           <Navbar.Toggle />
 
-          <Nav className="me-auto">
-            {systemInfo?.springH2ConsoleEnabled && (
-              <>
-                <Nav.Link href="/h2-console">H2Console</Nav.Link>
-              </>
-            )}
-            {systemInfo?.showSwaggerUILink && (
-              <>
-                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
-              </>
-            )}
-          </Nav>
-
-          <>
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          </>
-
           <Navbar.Collapse className="justify-content-between">
-            <Nav className="mr-auto">
+            <Nav className="me-auto">
+              {systemInfo?.springH2ConsoleEnabled && (
+                <Nav.Link href="/h2-console">H2Console</Nav.Link>
+              )}
+              {systemInfo?.showSwaggerUILink && (
+                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+              )}
+
               {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
                   title="Admin"
                   id="appnavbar-admin-dropdown"
                   data-testid="appnavbar-admin-dropdown"
                 >
-                  <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/admin/users">
+                    Users
+                  </NavDropdown.Item>
                 </NavDropdown>
               )}
+
               {currentUser && currentUser.loggedIn ? (
                 <>
                   <Nav.Link as={Link} to="/restaurants">
@@ -73,6 +66,12 @@ export default function AppNavbar({
                   </Nav.Link>
                   <Nav.Link as={Link} to="/recommendationrequest">
                     RecommendationRequest
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsborganization">
+                    UCSBOrganization
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/ucsbdiningcommonsmenuitem">
+                    UCSBDiningCommonsMenuItem
                   </Nav.Link>
                 </>
               ) : (
