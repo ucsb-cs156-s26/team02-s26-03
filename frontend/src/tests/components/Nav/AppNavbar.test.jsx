@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -255,6 +255,25 @@ describe("AppNavbar tests", () => {
     expect(screen.getByText("Log In")).toHaveAttribute(
       "href",
       "/oauth2/authorization/google",
+    );
+  });
+
+  test("renders the RecommendationRequest link correctly", async () => {
+    const { getByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() =>
+      expect(getByText("RecommendationRequest")).toBeInTheDocument(),
+    );
+    const recommendationRequestLink = getByText("RecommendationRequest");
+    expect(recommendationRequestLink).toHaveAttribute(
+      "href",
+      "/recommendationrequest",
     );
   });
 });
