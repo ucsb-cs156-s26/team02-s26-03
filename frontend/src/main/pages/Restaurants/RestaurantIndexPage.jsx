@@ -28,6 +28,7 @@ export default function RestaurantIndexPage() {
           variant="primary"
           href="/restaurants/create"
           style={{ float: "right" }}
+          data-testid="restaurant-index-create-button"
         >
           Create Restaurant
         </Button>
