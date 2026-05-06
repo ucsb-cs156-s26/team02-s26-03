@@ -47,6 +47,7 @@
 
   <properties>
     <java.version>21</java.version>
+    <skipFormatCode>false</skipFormatCode>
     <mainClass>edu.ucsb.cs156.example.ExampleApplication</mainClass>
     <app.package>edu.ucsb.cs156.example</app.package>
     <app.packagePath>edu/ucsb/cs156/example</app.packagePath>
@@ -216,6 +217,9 @@
         <groupId>com.cosium.code</groupId>
         <artifactId>git-code-format-maven-plugin</artifactId>
         <version>5.3</version>
+        <configuration>
+          <skip>${skipFormatCode}</skip>
+        </configuration>
         <executions>
           <!-- On commit, format the modified files -->
           <execution>
@@ -613,6 +617,7 @@
       </activation>
       <properties>
         <springProfiles>production</springProfiles>
+        <skipFormatCode>true</skipFormatCode>
       </properties>
       <dependencies>
         <dependency>
