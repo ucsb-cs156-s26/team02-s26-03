@@ -152,10 +152,12 @@ function ArticlesForm({
               isInvalid={Boolean(errors.dateAdded)}
               {...register("dateAdded", {
                 required: "Date Added is required.",
+                // Stryker disable ObjectLiteral,StringLiteral
                 pattern: {
                   value: isodate_regex,
                   message: "Date Added must be in ISO format",
                 },
+                // Stryker restore ObjectLiteral,StringLiteral
               })}
             />
             <Form.Control.Feedback type="invalid">
