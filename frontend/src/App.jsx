@@ -34,96 +34,59 @@ function App() {
     <Routes>
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/profile" element={<ProfilePage />} />
+      
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <Route exact path="/admin/users" element={<AdminUsersPage />} />
       )}
+
+      {/* UCSB Dates */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-        </>
+        <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/ucsbdates/edit/:id"
-            element={<UCSBDatesEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsbdates/create"
-            element={<UCSBDatesCreatePage />}
-          />
+          <Route exact path="/ucsbdates/edit/:id" element={<UCSBDatesEditPage />} />
+          <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
         </>
       )}
+
+      {/* Restaurants */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-        </>
+        <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/restaurants/edit/:id"
-            element={<RestaurantEditPage />}
-          />
-          <Route
-            exact
-            path="/restaurants/create"
-            element={<RestaurantCreatePage />}
-          />
+          <Route exact path="/restaurants/edit/:id" element={<RestaurantEditPage />} />
+          <Route exact path="/restaurants/create" element={<RestaurantCreatePage />} />
         </>
       )}
+
+      {/* Placeholder */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
-        </>
+        <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/placeholder/edit/:id"
-            element={<PlaceholderEditPage />}
-          />
-          <Route
-            exact
-            path="/placeholder/create"
-            element={<PlaceholderCreatePage />}
-          />
+          <Route exact path="/placeholder/edit/:id" element={<PlaceholderEditPage />} />
+          <Route exact path="/placeholder/create" element={<PlaceholderCreatePage />} />
         </>
       )}
+
+      {/* Recommendation Request & UCSB Organization - USER */}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
-          <Route
-            exact
-            path="/recommendationrequest"
-            element={<RecommendationRequestIndexPage />}
-            path="/ucsborganization"
-            element={<UCSBOrganizationIndexPage />}
-          />
+          <Route exact path="/recommendationrequest" element={<RecommendationRequestIndexPage />} />
+          <Route exact path="/ucsborganization" element={<UCSBOrganizationIndexPage />} />
         </>
       )}
+
+      {/* Recommendation Request & UCSB Organization - ADMIN */}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
-          <Route
-            exact
-            path="/recommendationrequest/edit/:id"
-            element={<RecommendationRequestEditPage />}
-          />
-          <Route
-            exact
-            path="/recommendationrequest/create"
-            element={<RecommendationRequestCreatePage />}
-            path="/ucsborganization/edit/:id"
-            element={<UCSBOrganizationEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganization/create"
-            element={<UCSBOrganizationCreatePage />}
-          />
+          <Route exact path="/recommendationrequest/edit/:id" element={<RecommendationRequestEditPage />} />
+          <Route exact path="/recommendationrequest/create" element={<RecommendationRequestCreatePage />} />
+          <Route exact path="/ucsborganization/edit/:id" element={<UCSBOrganizationEditPage />} />
+          <Route exact path="/ucsborganization/create" element={<UCSBOrganizationCreatePage />} />
         </>
       )}
     </Routes>
