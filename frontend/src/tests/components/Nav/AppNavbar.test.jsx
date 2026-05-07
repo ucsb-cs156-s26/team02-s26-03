@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import { currentUserFixtures } from "fixtures/currentUserFixtures";
@@ -193,7 +193,31 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/restaurants");
   });
 
-  test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
+  test("renders the UCSBOrganization link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("UCSBOrganization");
+    const link = screen.getByText("UCSBOrganization");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/ucsborganization");
+  });
+
+  test("Restaurant, UCSBDates, and UCSBOrganization links do NOT show when not logged in", async () => {
     const currentUser = null;
     const systemInfo = systemInfoFixtures.showingBoth;
     const doLogin = vi.fn();
@@ -212,6 +236,7 @@ describe("AppNavbar tests", () => {
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
+    expect(screen.queryByText("UCSBOrganization")).not.toBeInTheDocument();
   });
 
   test("when oauthlogin undefined, default value is used", async () => {
@@ -230,6 +255,25 @@ describe("AppNavbar tests", () => {
     expect(screen.getByText("Log In")).toHaveAttribute(
       "href",
       "/oauth2/authorization/google",
+    );
+  });
+
+  test("renders the RecommendationRequest link correctly", async () => {
+    const { getByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() =>
+      expect(getByText("RecommendationRequest")).toBeInTheDocument(),
+    );
+    const recommendationRequestLink = getByText("RecommendationRequest");
+    expect(recommendationRequestLink).toHaveAttribute(
+      "href",
+      "/recommendationrequest",
     );
   });
 });
