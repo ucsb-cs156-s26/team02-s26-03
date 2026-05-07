@@ -33,7 +33,7 @@ public class CurrentUserServiceImpl extends CurrentUserService {
   @Autowired GrantedAuthoritiesService grantedAuthoritiesService;
 
   @Value("${app.admin.emails}")
-  private final List<String> adminEmails = new ArrayList<String>();
+  private List<String> adminEmails = new ArrayList<>();
 
   /**
    * This method returns the current user as a User object.
@@ -94,7 +94,7 @@ public class CurrentUserServiceImpl extends CurrentUserService {
             .emailVerified(emailVerified)
             .locale(locale)
             .hostedDomain(hostedDomain)
-            .admin(adminEmails.contains(email))
+            .admin(adminEmails != null && adminEmails.contains(email))
             .build();
     userRepository.save(u);
     return u;
