@@ -276,4 +276,18 @@ describe("AppNavbar tests", () => {
       "/recommendationrequest",
     );
   });
+
+  test("renders the articles link correctly", async () => {
+    const { getByText } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar currentUser={currentUserFixtures.userOnly} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => expect(getByText("Articles")).toBeInTheDocument());
+    const articlesLink = getByText("Articles");
+    expect(articlesLink).toHaveAttribute("href", "/articles");
+  });
 });
