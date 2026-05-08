@@ -50,7 +50,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
 
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
-    axiosMock.onGet("/api/ucsbdiningcommonsmenuitem/all").reply(200, []);
+    axiosMock.onGet("/api/UCSBDiningCommonsMenuItem/all").reply(200, []);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -73,7 +73,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
   test("renders three items correctly for regular user", async () => {
     setupUserOnly();
     axiosMock
-      .onGet("/api/ucsbdiningcommonsmenuitem/all")
+      .onGet("/api/UCSBDiningCommonsMenuItem/all")
       .reply(200, ucsbDiningCommonsMenuItemFixtures.threeItems);
 
     render(
@@ -114,7 +114,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
   test("renders empty table when backend unavailable, user only", async () => {
     setupUserOnly();
 
-    axiosMock.onGet("/api/ucsbdiningcommonsmenuitem/all").timeout();
+    axiosMock.onGet("/api/UCSBDiningCommonsMenuItem/all").timeout();
 
     const restoreConsole = mockConsole();
 
@@ -132,7 +132,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/ucsbdiningcommonsmenuitem/all",
+      "Error communicating with backend via GET on /api/UCSBDiningCommonsMenuItem/all",
     );
     restoreConsole();
   });
@@ -141,10 +141,10 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
     setupAdminUser();
 
     axiosMock
-      .onGet("/api/ucsbdiningcommonsmenuitem/all")
+      .onGet("/api/UCSBDiningCommonsMenuItem/all")
       .reply(200, ucsbDiningCommonsMenuItemFixtures.threeItems);
     axiosMock
-      .onDelete("/api/ucsbdiningcommonsmenuitem")
+      .onDelete("/api/UCSBDiningCommonsMenuItem")
       .reply(200, "UCSBDiningCommonsMenuItem with id 1 was deleted");
 
     render(
@@ -182,7 +182,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
     expect(axiosMock.history.delete[0].url).toBe(
-      "/api/ucsbdiningcommonsmenuitem",
+      "/api/UCSBDiningCommonsMenuItem",
     );
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
