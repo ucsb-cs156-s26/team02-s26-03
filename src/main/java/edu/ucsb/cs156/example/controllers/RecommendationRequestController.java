@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "RecommendationRequest")
-@RequestMapping("/api/RecommendationRequest")
+@RequestMapping("/api/recommendationrequest")
 @RestController
 @Slf4j
 public class RecommendationRequestController extends ApiController {
