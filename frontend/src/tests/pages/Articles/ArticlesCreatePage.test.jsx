@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
+import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 
@@ -30,7 +30,7 @@ vi.mock("react-router", async (importOriginal) => {
   };
 });
 
-describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
+describe("ArticlesCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
@@ -45,80 +45,78 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
       .reply(200, systemInfoFixtures.showingNeither);
   });
 
+  const queryClient = new QueryClient();
+
   test("renders without crashing", async () => {
-    const queryClient = new QueryClient();
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDiningCommonsMenuItemCreatePage />
+          <ArticlesCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
-      ).toBeInTheDocument();
+      expect(screen.getByLabelText("Title")).toBeInTheDocument();
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /ucsbdiningcommonsmenuitem", async () => {
+  test("on submit, makes request to backend, and redirects to /articles", async () => {
     const queryClient = new QueryClient();
-    const menuItem = {
-      id: 1,
-      diningCommonsCode: "portola",
-      name: "Pasta",
-      station: "Entrees",
+    const article = {
+      id: 3,
+      title: "Test Article",
+      url: "https://example.com",
+      explanation: "A test article",
+      email: "test@ucsb.edu",
+      dateAdded: "2022-01-02T12:00:00",
     };
 
-    axiosMock
-      .onPost("/api/UCSBDiningCommonsMenuItem/post")
-      .reply(202, menuItem);
+    axiosMock.onPost("/api/articles/post").reply(202, article);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBDiningCommonsMenuItemCreatePage />
+          <ArticlesCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
-      ).toBeInTheDocument();
+      expect(screen.getByLabelText("Title")).toBeInTheDocument();
     });
 
-    const diningCommonsCodeInput = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
-    );
-    const nameInput = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
-    const stationInput = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-station",
-    );
-    const submitButton = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-submit",
-    );
+    const titleInput = screen.getByLabelText("Title");
+    const urlInput = screen.getByLabelText("URL");
+    const explanationInput = screen.getByLabelText("Explanation");
+    const emailInput = screen.getByLabelText("Email");
+    const dateAddedInput = screen.getByLabelText("Date Added");
+    const createButton = screen.getByText("Create");
 
-    fireEvent.change(diningCommonsCodeInput, {
-      target: { value: "portola" },
+    fireEvent.change(titleInput, { target: { value: "Test Article" } });
+    fireEvent.change(urlInput, { target: { value: "https://example.com" } });
+    fireEvent.change(explanationInput, {
+      target: { value: "A test article" },
     });
-    fireEvent.change(nameInput, { target: { value: "Pasta" } });
-    fireEvent.change(stationInput, { target: { value: "Entrees" } });
-
-    fireEvent.click(submitButton);
+    fireEvent.change(emailInput, { target: { value: "test@ucsb.edu" } });
+    fireEvent.change(dateAddedInput, {
+      target: { value: "2022-01-02T12:00" },
+    });
+    fireEvent.click(createButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      diningCommonsCode: "portola",
-      name: "Pasta",
-      station: "Entrees",
+      title: "Test Article",
+      url: "https://example.com",
+      explanation: "A test article",
+      email: "test@ucsb.edu",
+      dateAdded: "2022-01-02T12:00",
     });
 
     expect(mockToast).toBeCalledWith(
-      "New UCSBDiningCommonsMenuItem Created - id: 1 name: Pasta",
+      "New article Created - id: 3 title: Test Article",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
+    expect(mockNavigate).toBeCalledWith({ to: "/articles" });
   });
 });
