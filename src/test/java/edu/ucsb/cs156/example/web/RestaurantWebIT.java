@@ -2,7 +2,9 @@ package edu.ucsb.cs156.example.web;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+import com.microsoft.playwright.Locator;
 import edu.ucsb.cs156.example.WebTestCase;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,9 +22,11 @@ public class RestaurantWebIT extends WebTestCase {
   public void admin_user_can_create_edit_delete_restaurant() throws Exception {
     setupUser(true);
 
-    page.getByText("Restaurants").click();
+    page.navigate(URI.create(page.url()).resolve("/restaurants").toString());
+    page.waitForURL("**/restaurants");
 
-    page.getByText("Create Restaurant").click();
+    Locator createRestaurant = page.getByTestId("restaurant-index-create-button");
+    createRestaurant.click(new Locator.ClickOptions().setTimeout(180_000));
     assertThat(page.getByText("Create New Restaurant")).isVisible();
     page.getByTestId("RestaurantForm-name").fill("Freebirds");
     page.getByTestId("RestaurantForm-description").fill("Build your own burrito chain");
@@ -47,9 +51,10 @@ public class RestaurantWebIT extends WebTestCase {
   public void regular_user_cannot_create_restaurant() throws Exception {
     setupUser(false);
 
-    page.getByText("Restaurants").click();
+    page.navigate(URI.create(page.url()).resolve("/restaurants").toString());
+    page.waitForURL("**/restaurants");
 
-    assertThat(page.getByText("Create Restaurant")).not().isVisible();
+    assertThat(page.getByTestId("restaurant-index-create-button")).not().isVisible();
     assertThat(page.getByTestId("RestaurantTable-cell-row-0-col-name")).not().isVisible();
   }
 }

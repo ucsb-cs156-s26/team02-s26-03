@@ -52,7 +52,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SecurityConfig {
 
   @Value("${app.admin.emails}")
-  private final List<String> adminEmails = new ArrayList<>();
+  private List<String> adminEmails = new ArrayList<>();
 
   @Autowired UserRepository userRepository;
 
@@ -133,7 +133,7 @@ public class SecurityConfig {
    * @return whether the user with the given email is an admin
    */
   public boolean getAdmin(String email) {
-    if (adminEmails.contains(email)) {
+    if (adminEmails != null && adminEmails.contains(email)) {
       return true;
     }
     Optional<User> u = userRepository.findByEmail(email);

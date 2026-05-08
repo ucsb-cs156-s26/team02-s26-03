@@ -47,6 +47,11 @@
 
   <properties>
     <java.version>21</java.version>
+    <!-- Boot 3.4.3 pins 1.15.11; Mockito/Byte Buddy cannot read JVM 25 (major 69) bytecode on that line -->
+    <byte-buddy.version>1.18.7</byte-buddy.version>
+    <!-- Boot 3.4.3 pins Lombok 1.18.36; Homebrew / newer javac 21 builds can hit TypeTag :: UNKNOWN -->
+    <lombok.version>1.18.46</lombok.version>
+    <skipFormatCode>false</skipFormatCode>
     <mainClass>edu.ucsb.cs156.example.ExampleApplication</mainClass>
     <app.package>edu.ucsb.cs156.example</app.package>
     <app.packagePath>edu/ucsb/cs156/example</app.packagePath>
@@ -88,6 +93,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -175,6 +181,24 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-configuration-processor</artifactId>
+              <version>${project.parent.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
       <!-- This fixes a problem as explained in this SO article:
       https://stackoverflow.com/a/61936537/13960329
       -->
@@ -216,6 +240,9 @@
         <groupId>com.cosium.code</groupId>
         <artifactId>git-code-format-maven-plugin</artifactId>
         <version>5.3</version>
+        <configuration>
+          <skip>${skipFormatCode}</skip>
+        </configuration>
         <executions>
           <!-- On commit, format the modified files -->
           <execution>
@@ -616,6 +643,7 @@
       </activation>
       <properties>
         <springProfiles>production</springProfiles>
+        <skipFormatCode>true</skipFormatCode>
       </properties>
       <dependencies>
         <dependency>
