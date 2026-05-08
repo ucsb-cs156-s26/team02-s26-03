@@ -80,7 +80,9 @@ describe("MenuItemReviewForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
-    expect(await screen.findByTestId(`${testIdPrefix}-cancel`)).toBeInTheDocument();
+    expect(
+      await screen.findByTestId(`${testIdPrefix}-cancel`),
+    ).toBeInTheDocument();
     fireEvent.click(screen.getByTestId(`${testIdPrefix}-cancel`));
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
@@ -100,9 +102,7 @@ describe("MenuItemReviewForm tests", () => {
     expect(
       await screen.findByText(/Menu item ID is required/),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Reviewer email is required/),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Reviewer email is required/)).toBeInTheDocument();
     expect(screen.getByText(/Star rating is required/)).toBeInTheDocument();
     expect(screen.getByText(/Date reviewed is required/)).toBeInTheDocument();
     expect(screen.getByText(/Comments are required/)).toBeInTheDocument();
@@ -136,9 +136,7 @@ describe("MenuItemReviewForm tests", () => {
     fireEvent.click(screen.getByTestId(`${testIdPrefix}-submit`));
 
     expect(
-      await screen.findByText(
-        /Reviewer email must be a valid email address/,
-      ),
+      await screen.findByText(/Reviewer email must be a valid email address/),
     ).toBeInTheDocument();
   });
 
@@ -267,10 +265,9 @@ describe("MenuItemReviewForm tests", () => {
       </QueryClientProvider>,
     );
 
-    fireEvent.change(
-      await screen.findByTestId(`${testIdPrefix}-itemId`),
-      { target: { value: "99" } },
-    );
+    fireEvent.change(await screen.findByTestId(`${testIdPrefix}-itemId`), {
+      target: { value: "99" },
+    });
     fireEvent.change(screen.getByTestId(`${testIdPrefix}-reviewerEmail`), {
       target: { value: "reviewer@ucsb.edu" },
     });
