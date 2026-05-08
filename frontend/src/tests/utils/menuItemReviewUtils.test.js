@@ -1,5 +1,6 @@
 import {
   toDateTimeLocalValue,
+  dateReviewedToRequestParam,
   onDeleteSuccess,
   cellToAxiosParamsDelete,
 } from "main/utils/menuItemReviewUtils";
@@ -12,6 +13,25 @@ vi.mock("react-toastify", async (importOriginal) => {
     ...originalModule,
     toast: vi.fn((x) => mockToast(x)),
   };
+});
+
+describe("dateReviewedToRequestParam", () => {
+  test("appends seconds for datetime-local width", () => {
+    expect(dateReviewedToRequestParam("2022-04-20T00:00")).toBe(
+      "2022-04-20T00:00:00",
+    );
+  });
+
+  test("leaves full ISO-style strings unchanged", () => {
+    expect(dateReviewedToRequestParam("2022-04-20T00:00:00")).toBe(
+      "2022-04-20T00:00:00",
+    );
+  });
+
+  test("returns non-strings unchanged", () => {
+    expect(dateReviewedToRequestParam(null)).toBe(null);
+    expect(dateReviewedToRequestParam(7)).toBe(7);
+  });
 });
 
 describe("toDateTimeLocalValue", () => {
