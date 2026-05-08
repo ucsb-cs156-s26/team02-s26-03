@@ -36,7 +36,7 @@ describe("ucsbDiningCommonsMenuItemUtils", () => {
       const result = cellToAxiosParamsDelete(cell);
 
       expect(result).toEqual({
-        url: "/api/ucsbdiningcommonsmenuitem",
+        url: "/api/UCSBDiningCommonsMenuItem",
         method: "DELETE",
         params: { id: 17 },
       });
