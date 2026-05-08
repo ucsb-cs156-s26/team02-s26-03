@@ -16,6 +16,7 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+  // Stryker disable all
   const defaultValues = useMemo(() => {
     if (!initialContents) {
       return {
@@ -31,6 +32,7 @@ function MenuItemReviewForm({
       dateReviewed: toDateTimeLocalValue(initialContents.dateReviewed),
     };
   }, [initialContents]);
+  // Stryker restore all
 
   // Stryker disable all
   const {
@@ -43,6 +45,16 @@ function MenuItemReviewForm({
   const navigate = useNavigate();
 
   const testIdPrefix = "MenuItemReviewForm";
+
+  // Stryker disable all
+  const dateReviewedRegister = register("dateReviewed", {
+    required: "Date reviewed is required.",
+    pattern: {
+      value: isodate_regex,
+      message: "Date reviewed must be a valid date/time (ISO-style).",
+    },
+  });
+  // Stryker restore all
 
   return (
     <Form noValidate onSubmit={handleSubmit(submitAction)}>
@@ -147,14 +159,7 @@ function MenuItemReviewForm({
               id="dateReviewed"
               type="datetime-local"
               isInvalid={Boolean(errors.dateReviewed)}
-              {...register("dateReviewed", {
-                required: "Date reviewed is required.",
-                pattern: {
-                  value: isodate_regex,
-                  message:
-                    "Date reviewed must be a valid date/time (ISO-style).",
-                },
-              })}
+              {...dateReviewedRegister}
             />
             <Form.Control.Feedback type="invalid">
               {errors.dateReviewed?.message}

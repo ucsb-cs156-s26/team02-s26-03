@@ -236,6 +236,38 @@ describe("MenuItemReviewForm tests", () => {
     ).toBeInTheDocument();
   });
 
+  test("validates stars minimum value", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <MenuItemReviewForm />
+        </Router>
+      </QueryClientProvider>,
+    );
+
+    fireEvent.change(screen.getByTestId(`${testIdPrefix}-itemId`), {
+      target: { value: "10" },
+    });
+    fireEvent.change(screen.getByTestId(`${testIdPrefix}-reviewerEmail`), {
+      target: { value: "person@ucsb.edu" },
+    });
+    fireEvent.change(screen.getByTestId(`${testIdPrefix}-stars`), {
+      target: { value: "0" },
+    });
+    fireEvent.change(screen.getByTestId(`${testIdPrefix}-dateReviewed`), {
+      target: { value: "2022-05-01T12:00" },
+    });
+    fireEvent.change(screen.getByTestId(`${testIdPrefix}-comments`), {
+      target: { value: "Too few stars" },
+    });
+
+    fireEvent.click(screen.getByTestId(`${testIdPrefix}-submit`));
+
+    expect(
+      await screen.findByText(/Stars must be at least 1/),
+    ).toBeInTheDocument();
+  });
+
   test("initialContents with non-string dateReviewed leaves field empty", async () => {
     render(
       <QueryClientProvider client={queryClient}>
@@ -284,5 +316,9 @@ describe("MenuItemReviewForm tests", () => {
     fireEvent.click(screen.getByTestId(`${testIdPrefix}-submit`));
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+
+    const submitted = mockSubmitAction.mock.calls[0][0];
+    expect(typeof submitted.itemId).toBe("number");
+    expect(typeof submitted.stars).toBe("number");
   });
 });
