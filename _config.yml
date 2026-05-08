@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-03
 owner: ucsb-cs156-s26
 repo_name: team02-s26-03
-pull_requests: [{"author":{"id":"U_kgDOCNn2aA","is_bot":false,"login":"alexandrugherghescu01","name":""},"headRefName":"alexandrugherghescu01_32","number":100,"title":"Alexandrugherghescu01 32","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/100"},{"author":{"id":"MDQ6VXNlcjM5MDM1Njg0","is_bot":false,"login":"kalyanrajavaram","name":""},"headRefName":"kx-fix-indexpage-url","number":99,"title":"Fix API URL casing in UCSBDiningCommonsMenuItemIndexPage","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/99"},{"author":{"id":"U_kgDOCNn2aA","is_bot":false,"login":"alexandrugherghescu01","name":""},"headRefName":"alexandrugherghescu01_31","number":98,"title":"Alexandrugherghescu01 31","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/98"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjM5MDM1Njg0","is_bot":false,"login":"kalyanrajavaram","name":""},"headRefName":"kx-fix-indexpage-url","number":99,"title":"Fix API URL casing in UCSBDiningCommonsMenuItemIndexPage","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/99"}]
