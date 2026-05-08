@@ -29,8 +29,8 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsbdiningcommonsmenuitem/all"],
-    { method: "GET", url: "/api/ucsbdiningcommonsmenuitem/all" },
+    ["/api/UCSBDiningCommonsMenuItem/all"],
+    { method: "GET", url: "/api/UCSBDiningCommonsMenuItem/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
