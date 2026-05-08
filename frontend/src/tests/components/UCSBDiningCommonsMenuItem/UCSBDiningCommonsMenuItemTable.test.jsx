@@ -172,7 +172,7 @@ describe("UCSBDiningCommonsMenuItemTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/ucsbdiningcommonsmenuitem")
+      .onDelete("/api/UCSBDiningCommonsMenuItem")
       .reply(200, { message: "UCSBDiningCommonsMenuItem deleted" });
 
     render(
