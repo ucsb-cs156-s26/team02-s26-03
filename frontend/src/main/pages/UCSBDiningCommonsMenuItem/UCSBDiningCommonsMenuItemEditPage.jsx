@@ -16,11 +16,11 @@ export default function UCSBDiningCommonsMenuItemEditPage({
     _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsbdiningcommonsmenuitem?id=${id}`],
+    [`/api/UCSBDiningCommonsMenuItem?id=${id}`],
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
-      url: `/api/ucsbdiningcommonsmenuitem`,
+      url: `/api/UCSBDiningCommonsMenuItem`,
       params: {
         id,
       },
@@ -28,7 +28,7 @@ export default function UCSBDiningCommonsMenuItemEditPage({
   );
 
   const objectToAxiosPutParams = (item) => ({
-    url: "/api/ucsbdiningcommonsmenuitem",
+    url: "/api/UCSBDiningCommonsMenuItem",
     method: "PUT",
     params: {
       id: item.id,
@@ -50,7 +50,7 @@ export default function UCSBDiningCommonsMenuItemEditPage({
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsbdiningcommonsmenuitem?id=${id}`],
+    [`/api/UCSBDiningCommonsMenuItem?id=${id}`],
   );
 
   const { isSuccess } = mutation;
