@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-03
 owner: ucsb-cs156-s26
 repo_name: team02-s26-03
-pull_requests: [{"author":{"id":"U_kgDOCNn2aA","is_bot":false,"login":"alexandrugherghescu01","name":""},"headRefName":"alexandrugherghescu_33","number":102,"title":"Add MenuItemReview placeholder pages, routes, and navbar link.","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/102"},{"author":{"id":"MDQ6VXNlcjM5MDM1Njg0","is_bot":false,"login":"kalyanrajavaram","name":""},"headRefName":"kx-fix-indexpage-url","number":101,"title":"Fix URL casing in edit/create pages and their tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/101"}]
+pull_requests: [{"author":{"id":"U_kgDOCNn2aA","is_bot":false,"login":"alexandrugherghescu01","name":""},"headRefName":"alexandrugherghescu_33","number":102,"title":"Add MenuItemReview placeholder pages, routes, and navbar link.","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/102"}]
