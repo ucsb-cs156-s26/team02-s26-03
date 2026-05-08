@@ -47,7 +47,7 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .onGet("/api/UCSBDiningCommonsMenuItem", { params: { id: 17 } })
         .timeout();
     });
 
@@ -89,14 +89,14 @@ describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
       axiosMock
-        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .onGet("/api/UCSBDiningCommonsMenuItem", { params: { id: 17 } })
         .reply(200, {
           id: 17,
           diningCommonsCode: "portola",
           name: "Pasta",
           station: "Entrees",
         });
-      axiosMock.onPut("/api/ucsbdiningcommonsmenuitem").reply(200, {
+      axiosMock.onPut("/api/UCSBDiningCommonsMenuItem").reply(200, {
         id: "17",
         diningCommonsCode: "portola",
         name: "Pasta Updated",
