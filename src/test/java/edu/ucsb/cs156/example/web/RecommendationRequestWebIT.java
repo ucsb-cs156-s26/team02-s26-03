@@ -46,7 +46,7 @@ public class RecommendationRequestWebIT extends WebTestCase {
     page.getByTestId("RecommendationRequestForm-explanation").fill("Masters Program");
     page.getByTestId("RecommendationRequestForm-dateRequested").fill("2026-05-20T00:00");
     page.getByTestId("RecommendationRequestForm-dateNeeded").fill("2026-06-01T00:00");
-    page.getByTestId("RecommendationRequestForm-done").selectOption("true");
+    page.getByTestId("RecommendationRequestForm-done").check()   ;
 
     page.getByTestId("RecommendationRequestForm-submit").click();
     page.waitForURL("**/recommendationrequest");
