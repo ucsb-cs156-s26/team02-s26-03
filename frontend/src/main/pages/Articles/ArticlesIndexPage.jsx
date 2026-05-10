@@ -28,6 +28,7 @@ export default function ArticlesIndexPage() {
           variant="primary"
           href="/articles/create"
           style={{ float: "right" }}
+          data-testid="articles-index-create-button"
         >
           Create Article
         </Button>
