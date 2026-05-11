@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/team02-s26-03
 owner: ucsb-cs156-s26
 repo_name: team02-s26-03
-pull_requests: [{"author":{"id":"MDQ6VXNlcjUzMzU2Mzg0","is_bot":false,"login":"POWERTRICEPS","name":"Raymond Xie"},"headRefName":"rx-org-test","number":122,"title":"Add UCSBOrganization integration tests","url":"https://github.com/ucsb-cs156-s26/team02-s26-03/pull/122"}]
+pull_requests: []
